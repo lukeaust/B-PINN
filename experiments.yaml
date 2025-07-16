@@ -1,0 +1,176 @@
+# ====================================================
+# B-PINN 实验总配置文件
+# 专注于为所有数据集生成核心对比和消融研究的结果
+# ====================================================
+# 全局默认设置
+global_settings:
+  epochs: 50
+  patience: 10
+  batch_size: 256
+  seed: 42
+  n_layers: 2
+
+# --- 实验定义列表 ---
+experiments:
+  # ====================================================
+  # ==         BPIC 2012 数据集实验组                ==
+  # ====================================================
+#  - name: bpic2012_lstm_final
+#    common_params:
+#      dataset_name: 'bpic2012'
+#      data_dir: 'data/processed/'
+#      model_type: 'lstm'
+#      # --- 从Optuna为LSTM在BPIC2012上找到的最优参数 ---
+#      lr: 0.00181
+#      hidden_dim: 64
+#      dropout: 0.13809
+#      lambda_mono: 0.00501
+#      lambda_bound: 0.00172
+#    runs:
+#      - { tag: 'base',           lambda_mono: 0.0,  lambda_bound: 0.0 }
+#      - { tag: 'ablation_mono',  lambda_bound: 0.0 }
+#      - { tag: 'ablation_bound', lambda_mono: 0.0 }
+#      - { tag: 'bpinn_full' }
+
+#    - name: bpic2012_robustness_analysis
+#      common_params:
+#        dataset_name: 'bpic2012'
+#        data_dir: 'data/processed/'
+#        model_type: 'lstm' # 鲁棒性分析通常基于一个确定的最佳模型
+#        # 使用为LSTM在BPIC2012上找到的最优参数
+#        lr: 0.00029
+#        hidden_dim: 128
+#        dropout: 0.229
+#      loop_on:
+#        train_ratio: [0.1, 0.25, 0.5, 0.75, 1.0]
+#      runs:
+#        - { tag_template: 'robustness_base_{train_ratio}', lambda_mono: 0.0,  lambda_bound: 0.0 }
+#        - { tag_template: 'robustness_bpinn_full_{train_ratio}', lambda_mono: 0.0029, lambda_bound: 0.1604 }
+
+    - name: bpic2012_gru_final
+      common_params:
+        dataset_name: 'bpic2012'
+        data_dir: 'data/processed/'
+        model_type: 'gru'
+        # --- (假设)这是为GRU在BPIC2012上找到的最优参数 (请替换) ---
+        lr: 0.00067
+        hidden_dim: 256
+        dropout: 0.48115
+        lambda_mono: 0.00799
+        lambda_bound: 0.04271
+      runs:
+        - { tag: 'base',           lambda_mono: 0.0,  lambda_bound: 0.0 }
+        - { tag: 'ablation_mono',  lambda_bound: 0.0 }
+        - { tag: 'ablation_bound', lambda_mono: 0.0 }
+        - { tag: 'bpinn_full' }
+
+  #   ====================================================
+  #   ==         Helpdesk 数据集实验组                 ==
+  #   ====================================================
+#  - name: helpdesk_lstm_final
+#    common_params:
+#      dataset_name: 'helpdesk'
+#      data_dir: 'data/processed/'
+#      model_type: 'lstm'
+#      # --- (假设)这是为LSTM on Helpdesk找到的最优参数 (请替换) ---
+#      lr: 0.00225
+#      hidden_dim: 100
+#      dropout: 0.11624
+#      lambda_mono: 0.08696
+#      lambda_bound: 0.06294
+#    runs:
+#      - { tag: 'base',           lambda_mono: 0.0,  lambda_bound: 0.0 }
+#      - { tag: 'ablation_mono',  lambda_bound: 0.0 }
+#      - { tag: 'ablation_bound', lambda_mono: 0.0 }
+#      - { tag: 'bpinn_full' }
+
+    - name: helpdesk_gru_final
+      common_params:
+        dataset_name: 'helpdesk'
+        data_dir: 'data/processed/'
+        model_type: 'gru'
+        # --- (假设)这是为GRU on Helpdesk找到的最优参数 (请替换) ---
+        lr: 0.00242
+        hidden_dim: 256
+        dropout: 0.36865
+        lambda_mono: 0.01765
+        lambda_bound: 0.0208
+      runs:
+        - { tag: 'base',           lambda_mono: 0.0,  lambda_bound: 0.0 }
+        - { tag: 'ablation_mono',  lambda_bound: 0.0 }
+        - { tag: 'ablation_bound', lambda_mono: 0.0 }
+        - { tag: 'bpinn_full' }
+
+  # ====================================================
+  # ==         BPIC 2017 数据集实验组                ==
+  # ====================================================
+#  - name: bpic2017_lstm_final
+#    common_params:
+#      dataset_name: 'bpic2017'
+#      data_dir: 'data/processed/'
+#      model_type: 'lstm'
+#      # --- (假设)这是为LSTM on BPIC2017找到的最优参数 (请替换) ---
+#      lr: 0.00034
+#      hidden_dim: 128
+#      dropout: 0.46072
+#      lambda_mono: 0.0050
+#      lambda_bound: 0.0562
+#    runs:
+#      - { tag: 'base',           lambda_mono: 0.0,  lambda_bound: 0.0 }
+#      - { tag: 'ablation_mono',  lambda_bound: 0.0 }
+#      - { tag: 'ablation_bound', lambda_mono: 0.0 }
+#      - { tag: 'bpinn_full' }
+
+    - name: bpic2017_gru_final
+      common_params:
+        dataset_name: 'bpic2017'
+        data_dir: 'data/processed/'
+        model_type: 'gru'
+        # --- (假设)这是为GRU on BPIC2017找到的最优参数 (请替换) ---
+        lr: 0.0006
+        hidden_dim: 100
+        dropout: 0.35
+        lambda_mono: 0.008
+        lambda_bound: 0.08
+      runs:
+        - { tag: 'base',           lambda_mono: 0.0,  lambda_bound: 0.0 }
+        - { tag: 'ablation_mono',  lambda_bound: 0.0 }
+        - { tag: 'ablation_bound', lambda_mono: 0.0 }
+        - { tag: 'bpinn_full' }
+
+  #   ====================================================
+  #   ==         Sepsis Cases 数据集实验组             ==
+  #   ====================================================
+#  - name: sepsis_cases_lstm_final
+#    common_params:
+#      dataset_name: 'sepsis_cases'
+#      data_dir: 'data/processed/'
+#      model_type: 'lstm'
+#      # --- (假设)这是为LSTM on Sepsis找到的最优参数 (请替换) ---
+#      lr: 0.00654
+#      hidden_dim: 100
+#      dropout: 0.22813
+#      lambda_mono: 0.00365
+#      lambda_bound: 0.18431
+#    runs:
+#      - { tag: 'base',           lambda_mono: 0.0,  lambda_bound: 0.0 }
+#      - { tag: 'ablation_mono',  lambda_bound: 0.0 }
+#      - { tag: 'ablation_bound', lambda_mono: 0.0 }
+#      - { tag: 'bpinn_full' }
+
+    - name: sepsis_cases_gru_final
+      common_params:
+        dataset_name: 'sepsis_cases'
+        data_dir: 'data/processed/'
+        model_type: 'gru'
+        # --- (假设)这是为GRU on Sepsis找到的最优参数 (请替换) ---
+        lr: 0.0001
+        hidden_dim: 256
+        dropout: 0.21688
+        lambda_mono: 0.00123
+        lambda_bound: 0.01581
+      runs:
+        - { tag: 'base',           lambda_mono: 0.0,  lambda_bound: 0.0 }
+        - { tag: 'ablation_mono',  lambda_bound: 0.0 }
+        - { tag: 'ablation_bound', lambda_mono: 0.0 }
+        - { tag: 'bpinn_full' }
